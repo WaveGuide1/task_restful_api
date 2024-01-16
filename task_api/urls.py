@@ -17,8 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from user_app import router as user_router
+from django.conf import settings
+
+auth_urls = []
+
+if settings.DEBUG:
+    auth_urls.append(path('verify/', include('rest_framework.urls')))
 
 user_url_pattern = [
+    path('auth/', include(auth_urls)),
     path('user/', include(user_router.router.urls)),
 ]
 
