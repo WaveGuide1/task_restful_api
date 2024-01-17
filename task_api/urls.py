@@ -19,14 +19,16 @@ from django.urls import path, include
 from user_app import router as user_router
 from django.conf import settings
 
-auth_urls = []
+auth_urls = [
+    path(r'', include('drf_social_oauth2.urls'),),
+]
 
 if settings.DEBUG:
-    auth_urls.append(path('verify/', include('rest_framework.urls')))
+    auth_urls.append(path(r'verify/', include('rest_framework.urls')))
 
 user_url_pattern = [
-    path('auth/', include(auth_urls)),
-    path('user/', include(user_router.router.urls)),
+    path(r'auth/', include(auth_urls)),
+    path(r'user/', include(user_router.router.urls)),
 ]
 
 urlpatterns = [
