@@ -77,8 +77,8 @@ docs/_build/
 # PyBuilder
 target/
 
-.env
-db.sqlite3
+*.env
+*db.sqlite3
 ### Django ###
 *.log
 *.pot
