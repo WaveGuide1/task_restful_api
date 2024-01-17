@@ -19,7 +19,9 @@ from django.urls import path, include
 from user_app import router as user_router
 from django.conf import settings
 
-auth_urls = []
+auth_urls = [
+    path('', include('rest_framework_social_oauth2.urls')),
+]
 
 if settings.DEBUG:
     auth_urls.append(path('verify/', include('rest_framework.urls')))
