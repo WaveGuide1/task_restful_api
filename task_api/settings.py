@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'oauth2_provider',
-    'rest_framework_social_oauth2',
+    'drf_social_oauth2',
     'user_app',
 ]
 
@@ -51,16 +51,17 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
 
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthentication',
-                                       'rest_framework.authentication.SessionAuthentication',
-                                       'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-                                       'rest_framework_social_oauth2.authentication.SocialAuthentication',
-                                       ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'drf_social_oauth2.authentication.SocialAuthentication',
+    ]
 }
 
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+    'drf_social_oauth2.backends.DjangoOAuth2',
 }
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
-                'social_django.context_processor.login_redirect',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
