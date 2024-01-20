@@ -9,6 +9,18 @@ class UserSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(required=False)
     username = serializers.CharField(read_only=True)
 
+    def validate(self, attrs):
+        request_method = self.context['request'].method
+        password = attrs.get('password', None)
+        if request_method == 'POST':
+            if password is None:
+                raise serializers.ValidationError({'message': 'Provide a password'})
+        elif request_method == 'PUT' or request_method == 'PATCH':
+            old_password = attrs.get('old_password', None)
+            if password is not None and old_password is None:
+                raise serializers.ValidationError({'message': 'Provide old password'})
+        return attrs
+
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = User.objects.create(**validated_data)
@@ -20,13 +32,14 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         try:
             user = instance
-            new_password = validated_data.pop('password')
-            old_password = validated_data.pop('old_password')
-            if user.check_password(old_password):
-                user.set_password(new_password)
-            else:
-                raise Exception('Old password is incorrect')
-            user.save()
+            if 'password' in validated_data:
+                new_password = validated_data.pop('password')
+                old_password = validated_data.pop('old_password')
+                if user.check_password(old_password):
+                    user.set_password(new_password)
+                else:
+                    raise Exception('Old password is incorrect')
+                user.save()
         except Exception as err:
             raise serializers.ValidationError({'message': err})
         return super(UserSerializer, self).update(instance, validated_data)
