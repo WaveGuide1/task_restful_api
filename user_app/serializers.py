@@ -1,5 +1,12 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import UserProfile
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['url', 'id', 'user', 'picture']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -8,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     old_password = serializers.CharField(required=False)
     username = serializers.CharField(read_only=True)
+    userprofile = UserProfileSerializer(read_only=True)
 
     def validate(self, attrs):
         request_method = self.context['request'].method
@@ -46,4 +54,5 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['url', 'id', 'first_name', 'last_name', 'username', 'email', 'password', 'old_password']
+        fields = ['url', 'id', 'first_name', 'last_name', 'username', 'email',
+                  'password', 'old_password', 'userprofile']

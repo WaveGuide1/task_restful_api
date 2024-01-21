@@ -1,8 +1,9 @@
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet
+from .views import UserViewSet, UserProfileViewSet
 
 app_name = 'user_app'
 
 router = DefaultRouter()
 
-router.register('profile', UserViewSet)
+router.register('users', UserViewSet)
+router.register('profiles', UserProfileViewSet)
