@@ -28,7 +28,7 @@ if settings.DEBUG:
 
 user_url_pattern = [
     path(r'auth/', include(auth_urls)),
-    path(r'user/', include(user_router.router.urls)),
+    path(r'account/', include(user_router.router.urls)),
 ]
 
 urlpatterns = [
