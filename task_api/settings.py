@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'drf_social_oauth2',
     'user_app',
+    'house_app',
 ]
 
 REST_FRAMEWORK = {
