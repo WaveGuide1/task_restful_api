@@ -25,6 +25,7 @@ user_profile_picture_path = FilePathGenerator()
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.FileField(user_profile_picture_path, null=True, blank=True)
+    house = models.ForeignKey('house_app.House', on_delete=models.SET_NULL, blank=True, null=True, related_name='members')
 
     def __str__(self):
         return self.user.username
