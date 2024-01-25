@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import House
-from .serializer import HouseSerializer
+from .serializers import HouseSerializer
 from .permission import IsManager
 
 # Create your views here.
