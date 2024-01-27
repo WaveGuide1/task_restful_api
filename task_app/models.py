@@ -10,7 +10,7 @@ PENDING = 'PD'
 
 STATUS_CHOICE = [
     (COMPLETE, 'complete'),
-    (NOT_COMPLETE, 'completed'),
+    (NOT_COMPLETE, 'Not completed'),
     (PENDING, 'pending'),
 ]
 
@@ -38,6 +38,9 @@ class TaskList(models.Model):
                               related_name='lists')
     status = models.CharField(max_length=2, default=NOT_COMPLETE, choices=STATUS_CHOICE)
 
+    def __str__(self):
+        return self.name
+
 
 class Task(models.Model):
     name = models.CharField(max_length=225)
@@ -46,6 +49,7 @@ class Task(models.Model):
                                    on_delete=models.SET_NULL, related_name='created_tasks')
     completed_by = models.ForeignKey('user_app.userprofile', null=True, blank=True,
                                      on_delete=models.SET_NULL, related_name='completed_tasks')
+    task_list = models.ForeignKey('task_app.TaskList', on_delete=models.CASCADE, related_name='tasks')
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=2, default=NOT_COMPLETE, choices=STATUS_CHOICE)
