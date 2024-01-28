@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from user_app import router as user_router
 from house_app import router as house_router
+from task_app import router as task_router
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +33,7 @@ user_url_pattern = [
     path(r'auth/', include(auth_urls)),
     path(r'account/', include(user_router.router.urls)),
     path(r'main/', include(house_router.router.urls)),
+    path(r'main/', include(task_router.router.urls))
 ]
 
 urlpatterns = [
