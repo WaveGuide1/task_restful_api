@@ -14,3 +14,7 @@ class TaskListSerializer(serializers.ModelSerializer):
         fields = ['url', 'id', 'name', 'description',
                   'created_by', 'status', 'house', 'created_at']
         read_only_fields = ['created_by', 'status']
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    pass
