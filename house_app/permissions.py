@@ -17,3 +17,4 @@ class IsManager(permissions.BasePermission):
             return True
 
         return request.user.userprofile == obj.manager
+

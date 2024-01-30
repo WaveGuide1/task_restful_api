@@ -32,8 +32,8 @@ if settings.DEBUG:
 user_url_pattern = [
     path(r'auth/', include(auth_urls)),
     path(r'account/', include(user_router.router.urls)),
-    path(r'main/', include(house_router.router.urls)),
-    path(r'main/', include(task_router.router.urls))
+    path(r'house/', include(house_router.router.urls)),
+    path(r'task/', include(task_router.router.urls)),
 ]
 
 urlpatterns = [
