@@ -30,7 +30,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 class AttachmentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
                         mixins.RetrieveModelMixin, mixins.DestroyModelMixin,
-                        mixins.UpdateModelMixin, mixins.ListModelMixin):
+                        mixins.UpdateModelMixin):
     queryset = Attachment.objects.all()
     serializer_class = AttachmentSerializer
     permission_classes = [IsAttachmentEditingAllowed]
