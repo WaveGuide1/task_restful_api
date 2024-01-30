@@ -17,4 +17,26 @@ class TaskListSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    pass
+    created_by = serializers.HyperlinkedRelatedField(read_only=True,
+                                                     many=False, view_name='userprofile-detail')
+    completed_by = serializers.HyperlinkedRelatedField(read_only=True,
+                                                       many=False, view_name='userprofile-detail')
+    task_list = serializers.HyperlinkedRelatedField(queryset=TaskList.objects.all(), many=False,
+                                                    view_name='tasklist-detail')
+
+    class Meta:
+        model = Task
+        fields = ['url', 'id', 'name', 'description', 'created_by',
+                  'completed_by', 'task_list', 'created_at', 'completed_at',
+                  'status']
+        read_only_fields = ['created_by', 'completed_by', 'created_at',
+                            'completed_at']
+
+
+class AttachmentSerializer(serializers.ModelSerializer):
+    task = serializers.HyperlinkedRelatedField(queryset=Task.objects.all(), many=False, view_name='task-detail')
+
+    class Meta:
+        model = Attachment
+        fields = ['url', 'id', 'task', 'file', 'created_at']
+        read_only_field = ['created_at']
