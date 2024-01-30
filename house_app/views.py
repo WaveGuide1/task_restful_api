@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from .models import House
 from .serializers import HouseSerializer
-from .permission import IsManager
+from .permissions import IsManager
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth.models import User
