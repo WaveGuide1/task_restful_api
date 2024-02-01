@@ -8,11 +8,12 @@ class TaskListSerializer(serializers.ModelSerializer):
                                                 many=False, view_name='house-detail')
     created_by = serializers.HyperlinkedRelatedField(read_only=True,
                                                      many=False, view_name='userprofile-detail')
+    tasks = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='task-detail')
 
     class Meta:
         model = TaskList
         fields = ['url', 'id', 'name', 'description',
-                  'created_by', 'status', 'house', 'created_at']
+                  'created_by', 'status', 'house', 'tasks', 'created_at']
         read_only_fields = ['created_by', 'status']
 
 
@@ -23,10 +24,11 @@ class TaskSerializer(serializers.ModelSerializer):
                                                        many=False, view_name='userprofile-detail')
     task_list = serializers.HyperlinkedRelatedField(queryset=TaskList.objects.all(), many=False,
                                                     view_name='tasklist-detail')
+    attachment = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='attachment-detail')
 
     class Meta:
         model = Task
-        fields = ['url', 'id', 'name', 'description', 'created_by',
+        fields = ['url', 'id', 'name', 'description', 'created_by', 'attachment',
                   'completed_by', 'task_list', 'created_at', 'completed_at',
                   'status']
         read_only_fields = ['created_by', 'completed_by', 'created_at',
