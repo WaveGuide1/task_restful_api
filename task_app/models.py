@@ -9,8 +9,8 @@ NOT_COMPLETE = 'NC'
 PENDING = 'PD'
 
 STATUS_CHOICE = [
-    (COMPLETE, 'complete'),
     (NOT_COMPLETE, 'Not completed'),
+    (COMPLETE, 'complete'),
     (PENDING, 'pending'),
 ]
 
@@ -67,3 +67,6 @@ class Attachment(models.Model):
                              related_name='attachment')
     file = models.FileField(upload_to=file_path, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.task)

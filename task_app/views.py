@@ -9,7 +9,7 @@ from .permissions import IsTaskListCreator, IsTaskEditingAllowed, IsAttachmentEd
 
 
 class TaskListViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
-                      mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                      mixins.RetrieveModelMixin,
                       mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     queryset = TaskList.objects.all()
     serializer_class = TaskListSerializer
