@@ -52,6 +52,15 @@ class TaskSerializer(serializers.ModelSerializer):
 class AttachmentSerializer(serializers.ModelSerializer):
     task = serializers.HyperlinkedRelatedField(queryset=Task.objects.all(), many=False, view_name='task-detail')
 
+    def validate(self, attrs):
+        user_profile = self.context['request'].user.userprofile
+        task = attrs['task']
+        task_list = TaskList.objects.get(tasks__id__exact=task.id)
+        if task_list not in user_profile.house.lists.all():
+            raise serializers.ValidationError({'message': 'This task does not belong to the house you are a '
+                                                          'member of.'})
+        return attrs
+
     class Meta:
         model = Attachment
         fields = ['url', 'id', 'task', 'file', 'created_at']
