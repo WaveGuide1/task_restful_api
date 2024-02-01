@@ -9,8 +9,8 @@ NOT_COMPLETE = 'NC'
 PENDING = 'PD'
 
 STATUS_CHOICE = [
-    (COMPLETE, 'complete'),
     (NOT_COMPLETE, 'Not completed'),
+    (COMPLETE, 'complete'),
     (PENDING, 'pending'),
 ]
 
