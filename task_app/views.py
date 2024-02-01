@@ -3,6 +3,7 @@ from rest_framework import mixins, viewsets
 from .models import TaskList, Task, Attachment
 from .serializers import TaskListSerializer, TaskSerializer, AttachmentSerializer
 from .permissions import IsTaskListCreator, IsTaskEditingAllowed, IsAttachmentEditingAllowed
+from rest_framework.decorators import action
 
 
 # Create your views here.
@@ -26,6 +27,14 @@ class TaskViewSet(viewsets.ModelViewSet):
         user_profile = self.request.user.userprofile
         new_queryset = queryset.filter(created_by=user_profile)
         return new_queryset
+
+    @action(methods=['patch'], detail=True)
+    def update_task_status(self):
+
+        try:
+            pass
+        except Exception as err:
+            pass
 
 
 class AttachmentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
