@@ -32,7 +32,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def update_task_status(self):
 
         try:
-            pass
+
         except Exception as err:
             pass
 
