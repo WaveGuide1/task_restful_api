@@ -33,7 +33,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         try:
             task = self.get_object()
-            user_profile = self.user.userprofile
+            user_profile = self.request.user.userprofile
         except Exception as err:
             pass
 
