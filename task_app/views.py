@@ -32,7 +32,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     def update_task_status(self):
 
         try:
-
+            task = self.get_object()
+            user_profile = self.user.userprofile
         except Exception as err:
             pass
 
