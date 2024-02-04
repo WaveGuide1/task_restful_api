@@ -34,6 +34,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         try:
             task = self.get_object()
             user_profile = self.request.user.userprofile
+            if user_profile:
+                pass
         except Exception as err:
             pass
 
