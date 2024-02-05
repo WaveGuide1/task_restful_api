@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from rest_framework import mixins, viewsets
-from .models import TaskList, Task, Attachment
+from .models import TaskList, Task, Attachment, NOT_COMPLETE, COMPLETE
 from .serializers import TaskListSerializer, TaskSerializer, AttachmentSerializer
 from .permissions import IsTaskListCreator, IsTaskEditingAllowed, IsAttachmentEditingAllowed
 from rest_framework.decorators import action
+from django.utils import timezone
+from rest_framework.response import Response
+from rest_framework import status as st
 
 
 # Create your views here.
@@ -29,15 +32,33 @@ class TaskViewSet(viewsets.ModelViewSet):
         return new_queryset
 
     @action(methods=['patch'], detail=True)
-    def update_task_status(self):
+    def update_task_status(self, request, pk=None):
 
         try:
             task = self.get_object()
             user_profile = self.request.user.userprofile
-            if user_profile:
-                pass
+            status = request.data['status']
+            if status == NOT_COMPLETE:
+                if task.status == COMPLETE:
+                    task.status = NOT_COMPLETE
+                    task.completed_by = None
+                    task.completed_at = None
+                else:
+                    return Response({'message': 'Task is already marked not Completed'})
+            elif status == COMPLETE:
+                if task.status == NOT_COMPLETE:
+                    task.status = COMPLETE
+                    task.completed_at = timezone.now()
+                    task.completed_by = user_profile
+                else:
+                    return Response({'message': 'Task is already marked Completed'})
+            else:
+                return Response({'message': 'Incorrect task status'})
+            task.save()
+            serializer = TaskSerializer(instance=task, context={'request': request})
+            return Response(serializer.data, status=st.HTTP_200_OK)
         except Exception as err:
-            pass
+            return Response({'message': 'Bad request'}, status=st.HTTP_400_BAD_REQUEST)
 
 
 class AttachmentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,

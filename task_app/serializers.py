@@ -46,7 +46,7 @@ class TaskSerializer(serializers.ModelSerializer):
                   'completed_by', 'task_list', 'created_at', 'completed_at',
                   'status']
         read_only_fields = ['created_by', 'completed_by', 'created_at',
-                            'completed_at']
+                            'completed_at', 'status']
 
 
 class AttachmentSerializer(serializers.ModelSerializer):
