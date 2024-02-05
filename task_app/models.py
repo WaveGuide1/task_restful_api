@@ -6,12 +6,10 @@ from django.utils.deconstruct import deconstructible
 # Create your models here.
 COMPLETE = 'CP'
 NOT_COMPLETE = 'NC'
-PENDING = 'PD'
 
 STATUS_CHOICE = [
     (NOT_COMPLETE, 'Not completed'),
     (COMPLETE, 'complete'),
-    (PENDING, 'pending'),
 ]
 
 

@@ -1,6 +1,6 @@
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
-from .models import Task, COMPLETE, NOT_COMPLETE, PENDING
+from .models import Task, COMPLETE, NOT_COMPLETE
 
 
 @receiver(post_save, sender=Task)
