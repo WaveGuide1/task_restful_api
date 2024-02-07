@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import mixins, viewsets
+from rest_framework import mixins, viewsets, filters
 from .models import TaskList, Task, Attachment, NOT_COMPLETE, COMPLETE
 from .serializers import TaskListSerializer, TaskSerializer, AttachmentSerializer
 from .permissions import IsTaskListCreator, IsTaskEditingAllowed, IsAttachmentEditingAllowed
@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework import status as st
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Create your views here.
@@ -24,6 +25,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsTaskEditingAllowed]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['=name', 'description']
+    filterset_fields = ['status',]
 
     def get_queryset(self):
         queryset = super(TaskViewSet, self).get_queryset()

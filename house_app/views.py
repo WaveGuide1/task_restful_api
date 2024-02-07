@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, filters
 from .models import House
 from .serializers import HouseSerializer
 from .permissions import IsManager
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth.models import User
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
@@ -14,6 +15,10 @@ class HouseViewSet(viewsets.ModelViewSet):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
     permission_classes = [IsManager]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
+    search_fields = ['=name', 'description']
+    ordering_fields = ['points']
+    filterset_fields = ['members']
 
     @action(methods=['post'], detail=True, name='Join', permission_classes=[])
     def join(self, request, pk=None):
