@@ -35,7 +35,6 @@ class TaskViewSet(viewsets.ModelViewSet):
         new_queryset = queryset.filter(created_by=user_profile)
         return new_queryset
 
-    # Updating task status
     @action(methods=['patch'], detail=True)
     def update_task_status(self, request, pk=None):
 
