@@ -23,7 +23,7 @@ WHAT YOU NEED TO RUN THE APP LOCALLY
 
 .. If there are no errors, open http://127.0.0.1:8000/ in a web browser.
 
-#Database model link
+#Database model design link
 
 ##Available Local Routes
 
