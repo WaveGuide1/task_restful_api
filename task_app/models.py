@@ -7,6 +7,7 @@ from django.utils.deconstruct import deconstructible
 COMPLETE = 'CP'
 NOT_COMPLETE = 'NC'
 
+
 STATUS_CHOICE = [
     (NOT_COMPLETE, 'Not completed'),
     (COMPLETE, 'complete'),

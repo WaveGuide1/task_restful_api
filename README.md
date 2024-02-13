@@ -1,6 +1,7 @@
 # Task REST API (Clone of Trello)
 
 # DataBase Model
+https://dbdiagram.io/d/Task-project-65cb1b85ac844320ae049344
 
 ## Task REST API
 WHAT YOU NEED TO RUN THE APP LOCALLY
