@@ -15,8 +15,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from user_app import router as user_router
+from house_app import router as house_router
+from task_app import router as task_router
+from django.conf import settings
+from django.conf.urls.static import static
+
+auth_urls = [
+    path(r'', include('drf_social_oauth2.urls'),),
+]
+
+if settings.DEBUG:
+    auth_urls.append(path(r'verify/', include('rest_framework.urls')))
+
+user_url_pattern = [
+    path(r'auth/', include(auth_urls)),
+    path(r'account/', include(user_router.router.urls)),
+    path(r'house/', include(house_router.router.urls)),
+    path(r'task/', include(task_router.router.urls)),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(user_url_pattern)),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
