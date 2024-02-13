@@ -3,7 +3,6 @@ from django.utils.deconstruct import deconstructible
 import os
 import uuid
 
-
 # Create your models here.
 
 @deconstructible
