@@ -8,21 +8,70 @@ WHAT YOU NEED TO RUN THE APP LOCALLY
 ### Clone the Project From GitHub
 
 
-.. pip install django 
-.. pip install mysqlclient 
-.. pip install djangorestframework 
-.. pip install python-dotenv (connect it)
+- pip install django 
+- pip install mysqlclient 
+- pip install djangorestframework 
+- pip install python-dotenv (connect it)
+
+## Example
+```bash
+# Clone the repository
+git clone https://github.com/WaveGuide1/task_restful_api.git
+cd task_restful_api
+```
+```bash
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+```bash
+# Install dependencies
+pip install -r requirements.txt
+```
+```bash
+# Run migrations
+python manage.py migrate
+```
+```bash
+# Start the development server
+python manage.py runserver
+```
+- SECRET_KEY=your_secret_key
+- DEBUG=True  # Set to False in production
 
 ### Create a Database (MySQL database was used in this project). You can use Postgresql or any other sql db
 
-## Migrate Project to the Database
+### Linux os
 
-.. python3 manage.py makemigrations
+```bash
+sudo apt update
+sudo apt install mysql-server
+```
+```bash
+mysql -u root -p
+```
 
-.. python3 manage.py migrate
-## Run the Project
+```bash
+CREATE DATABASE task_restful_db;
+CREATE USER 'taskuser'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON task_restful_db.* TO 'taskuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+### In setting.py
 
-.. python manage.py runserver
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'task_restful_db',
+        'USER': 'taskuser',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
 
 .. If there are no errors, open http://127.0.0.1:8000/ in a web browser.
 
